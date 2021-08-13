@@ -2,9 +2,10 @@ interface CounterProps {
   count: number;
   onIncrement: () => void;
   onDecrement: () => void;
+  onResetSteps: () => void;
 }
 
-export function Counter({ count, onIncrement, onDecrement }: CounterProps) {
+export function Counter({ count, onIncrement, onResetSteps }: CounterProps) {
   return (
     <div
       style={{
@@ -14,9 +15,9 @@ export function Counter({ count, onIncrement, onDecrement }: CounterProps) {
         gap: "2rem",
       }}
     >
-      <button onClick={onDecrement}> - </button>
-      <h1> {count} </h1>
-      <button onClick={onIncrement}> + </button>
+      <h1> You've walked {count} steps today! </h1>
+      <button onClick={onIncrement}> Add a step </button>
+      <button onClick={onResetSteps}> Reset steps </button>
     </div>
   );
 }
