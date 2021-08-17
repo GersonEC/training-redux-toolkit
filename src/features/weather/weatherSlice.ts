@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../../app/store";
 
 //[{"title":"Milan","location_type":"City","woeid":718345,"latt_long":"45.468941,9.181030"}]
 interface WeatherState {
