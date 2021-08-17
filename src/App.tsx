@@ -12,6 +12,7 @@ import {
   fetchLocation,
   fetchLocationTemperature,
 } from "./features/weather/weatherSlice";
+import { useFetchBreedsQuery } from "./services/dogService";
 
 function App() {
   const count = useAppSelector((state: RootState) => state.counter.value);
@@ -24,6 +25,9 @@ function App() {
   const status = useAppSelector((state: RootState) => state.weather.status);
   const dispatch = useAppDispatch();
   const [location, setLocation] = useState("");
+  const [numDogs, setNumDogs] = useState(10);
+  const { data = [], isFetching } = useFetchBreedsQuery(numDogs);
+
   const onIncrement = () => {
     dispatch(incremented());
   };
@@ -75,6 +79,39 @@ function App() {
       <p>-------------DIVIDER-----------------</p>
       <p>-------------DIVIDER-----------------</p>
       <h1>The Dog App</h1>
+      <div>
+        <h3>Dogs to fetch:</h3>
+        <select
+          value={numDogs}
+          onChange={(e) => setNumDogs(Number(e.target.value))}
+        >
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+        </select>
+      </div>
+      <div>
+        <h3>Number of dogs fetched: {data.length}</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Picture</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((breed) => (
+              <tr key={breed.id}>
+                <td>{breed.name}</td>
+                <td>
+                  <img src={breed.image.url} alt={breed.name} height="250" />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

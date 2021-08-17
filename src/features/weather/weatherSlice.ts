@@ -27,7 +27,6 @@ export const fetchLocation = createAsyncThunk(
 export const fetchLocationTemperature = createAsyncThunk(
   "weather/fetchLocationTemperature",
   async (woeidLocation: number) => {
-    debugger;
     const response = await fetch(
       `https://weather.daveceddia.com/api/location/${woeidLocation}`
     );
@@ -50,7 +49,6 @@ const weatherSlice = createSlice({
         state.status = "idle";
       })
       .addCase(fetchLocationTemperature.fulfilled, (state, action) => {
-        debugger;
         const newTemp = action.payload.consolidated_weather[0].the_temp;
         state.LocationTemperature = newTemp;
       });

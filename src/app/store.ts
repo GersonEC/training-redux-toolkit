@@ -1,11 +1,16 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import counterReducer from "../features/counter/counterSlice";
 import weaterReducer from "../features/weather/weatherSlice";
+import { dogsApiSlice } from "../services/dogService";
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     weather: weaterReducer,
+    [dogsApiSlice.reducerPath]: dogsApiSlice.reducer,
+  },
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware().concat(dogsApiSlice.middleware);
   },
 });
 
