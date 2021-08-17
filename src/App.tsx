@@ -92,25 +92,35 @@ function App() {
         </select>
       </div>
       <div>
-        <h3>Number of dogs fetched: {data.length}</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Picture</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((breed) => (
-              <tr key={breed.id}>
-                <td>{breed.name}</td>
-                <td>
-                  <img src={breed.image.url} alt={breed.name} height="250" />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        {isFetching ? (
+          <h3>Is fetching</h3>
+        ) : (
+          <>
+            <h3>Number of dogs fetched: {data.length}</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Picture</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((breed) => (
+                  <tr key={breed.id}>
+                    <td>{breed.name}</td>
+                    <td>
+                      <img
+                        src={breed.image.url}
+                        alt={breed.name}
+                        height="250"
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </>
+        )}
       </div>
     </div>
   );
