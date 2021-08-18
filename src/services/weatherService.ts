@@ -22,6 +22,10 @@ export const weatherApiSlice = createApi({
         query(woeidLocation) {
           return `/${woeidLocation}`;
         },
+        transformResponse(result: any) {
+          debugger;
+          return result.consolidated_weather[0].the_temp;
+        },
       }),
     };
   },

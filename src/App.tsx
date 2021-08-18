@@ -84,7 +84,10 @@ function App() {
       <input name="location" value={location} onChange={onLocationChange} />
       <button onClick={onGetWeather}>Get It</button>
       <h1>
-        {status === "loading" ? "Loading..." : `${temperature.toFixed(2)}°C`}
+        {/*status === "loading" ? "Loading..." : `${temperature.toFixed(2)}°C`*/}
+        {status === "loading"
+          ? "Loading..."
+          : `${dataLocationTemp && dataLocationTemp.toFixed(2)}°C`}
       </h1>
       <p>-------------DIVIDER-----------------</p>
       <p>-------------DIVIDER-----------------</p>
