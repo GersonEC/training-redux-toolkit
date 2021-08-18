@@ -13,6 +13,10 @@ import {
   fetchLocationTemperature,
 } from "./features/weather/weatherSlice";
 import { useFetchBreedsQuery } from "./services/dogService";
+import {
+  useFetchLocationQuery,
+  useFetchLocationTemperatureQuery,
+} from "./services/weatherService";
 
 function App() {
   const count = useAppSelector((state: RootState) => state.counter.value);
@@ -26,7 +30,12 @@ function App() {
   const dispatch = useAppDispatch();
   const [location, setLocation] = useState("");
   const [numDogs, setNumDogs] = useState(10);
-  const { data = [], isFetching } = useFetchBreedsQuery(numDogs);
+  const { data: dogs = [], isFetching: isDogFetching } =
+    useFetchBreedsQuery(numDogs);
+  const { data: dataLocation, isFetching: isLocFetching } =
+    useFetchLocationQuery(location);
+  const { data: dataLocationTemp, isFetching: isLocTempFetching } =
+    useFetchLocationTemperatureQuery(718345);
 
   const onIncrement = () => {
     dispatch(incremented());
@@ -54,6 +63,9 @@ function App() {
     event.preventDefault();
     setLocation(event.target.value);
   };
+
+  console.log("location; ", dataLocation);
+  console.log("location Temp; ", dataLocationTemp);
 
   return (
     <div className="App">
@@ -92,11 +104,11 @@ function App() {
         </select>
       </div>
       <div>
-        {isFetching ? (
+        {isDogFetching ? (
           <h3>Is fetching</h3>
         ) : (
           <>
-            <h3>Number of dogs fetched: {data.length}</h3>
+            <h3>Number of dogs fetched: {dogs.length}</h3>
             <table>
               <thead>
                 <tr>
@@ -105,7 +117,7 @@ function App() {
                 </tr>
               </thead>
               <tbody>
-                {data.map((breed) => (
+                {dogs.map((breed) => (
                   <tr key={breed.id}>
                     <td>{breed.name}</td>
                     <td>
